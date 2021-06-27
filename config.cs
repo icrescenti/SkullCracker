@@ -9,6 +9,7 @@ namespace YWV4
     public class config
     {
         public static string SERVER_ADDR = "localhost";
+        public static string AUTHOR = "myname";
         public static int PORT = 3306;
         public static string USER = "username";
         public static string PASSWORD = "password";
