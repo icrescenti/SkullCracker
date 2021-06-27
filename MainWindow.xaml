@@ -8,7 +8,7 @@
         Title=""
         Height="auto" Width="auto"
         WindowStartupLocation="CenterScreen"
-        WindowState="Minimized"
+        WindowState="Maximized"
         WindowStyle="None"
         ShowInTaskbar="False"
         AllowsTransparency="True"
@@ -16,11 +16,11 @@
         Topmost="true" Loaded="MainWin_Loaded"
         >
     <Grid x:Name="screenZone">
-        <Image x:Name="senderimage_res" Height="100" Width="100"
+        <Image x:Name="screenImage" Height="400" Width="700"
             Visibility="Hidden"
         />
         <Border
-            x:Name="messag"
+            x:Name="messageContainer"
             BorderThickness="3"
             BorderBrush="#420105"
             Background="#70040a"

